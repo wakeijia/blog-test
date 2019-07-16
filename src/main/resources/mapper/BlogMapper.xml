@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace就是接口类-->
+<mapper namespace="com.cheer.blogtest.dao.BlogMapper">
+    <!--开启二级缓存（分开关）-->
+    <cache></cache>
+
+
+    <!--    id是接口的方法名 useCache本条语句是否开启二级缓存-->
+
+
+    <select id="bid" resultType="java.lang.Integer">
+        select MAX(id) as a FROM blog
+    </select>
+    <select id="getList" resultType="com.cheer.blogtest.vo.BlogVo">
+        select * from blog b left join users u on b.bUsername = u.username order by b.time DESC
+    </select>
+    <select id="getBlogVo" resultType="com.cheer.blogtest.vo.BlogVo">
+        select * from blog b left join users u on b.bUsername = u.username where b.id = #{id}
+    </select>
+    <select id="getNameList" resultType="com.cheer.blogtest.model.Blog">
+        select * from blog where bUsername = #{bUsername} order by time DESC
+    </select>
+
+    <insert id="insertBlog">
+        insert into blog(bUsername,bTheme,message) values (#{bUsername},#{bTheme},#{message})
+    </insert>
+
+
+</mapper>

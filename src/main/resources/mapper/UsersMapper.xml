@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace就是接口类-->
+<mapper namespace="com.cheer.blogtest.dao.UsersMapper">
+    <!--开启二级缓存（分开关）-->
+    <cache></cache>
+    <insert id="insert">
+        insert into users(username,password,email,phoneNum,avatar) values (#{username},#{password},#{email},#{phoneNum},#{avatar})
+    </insert>
+    <!--    id是接口的方法名 useCache本条语句是否开启二级缓存-->
+    <select id="find" resultType="Users">
+        select * from users where username = #{username}
+    </select>
+
+
+</mapper>

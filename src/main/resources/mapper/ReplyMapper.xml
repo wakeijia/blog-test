@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace就是接口类-->
+<mapper namespace="com.cheer.blogtest.dao.ReplyMapper">
+    <!--开启二级缓存（分开关）-->
+    <cache></cache>
+    <!--    id是接口的方法名 useCache本条语句是否开启二级缓存-->
+    <insert id="insertReply">
+        insert into reply(bid,floor,rUsername,rTheme,replay) values (#{bid},#{floor},#{rUsername},#{rTheme},#{replay})
+    </insert>
+    <!--<select id="getReplyList" resultType="com.cheer.blogtest.model.Reply">
+        select * from reply where bid=#{bid} HAVING floor>0
+    </select>-->
+    <select id="selectFloor" resultType="java.lang.Integer">
+        select MAX(floor) as a FROM reply where bid = #{bid}
+    </select>
+    <select id="getReplyVoList" resultType="com.cheer.blogtest.vo.ReplyVo">
+        select * from reply r join users u on r.rUsername=u.username where r.bid=#{bid} HAVING floor>0
+        order by r.time ASC
+    </select>
+    <select id="getReplyList" resultType="com.cheer.blogtest.vo.ReplyVo">
+        select * from reply r join blog b on r.bid=b.id where r.rUsername=#{username} HAVING floor>0
+        order by r.time DESC
+    </select>
+
+
+</mapper>

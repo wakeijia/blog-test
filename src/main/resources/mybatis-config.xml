@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--提示：一级缓存是默认开启的，而且无法关闭，是在同一个session内共享数据-->
+        <!--开启二级缓存 (总开关)，是在不同的session之间共享数据-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--文件-->
+        <setting name="logImpl" value="log4j2"/>
+        <!-- 每次抓取的数量-->
+        <setting name="defaultFetchSize" value="100"/>
+        <!-- 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--类型别名-->
+    <typeAliases>
+        <!--默认为包下面的类都定义一个别名：就是类名或者类名首字母小写-->
+        <package name="com.cheer.blogtest.model"></package>
+    </typeAliases>
+
+    <!--插件-->
+    <plugins>
+        <!--interceptor拦截器-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
+</configuration>

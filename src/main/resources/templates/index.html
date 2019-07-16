@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0 auto;
+            background-color: rgba(0,0,0,0.1);
+        }
+        #main{
+            text-align: center;
+            height: 50px;
+            background-color: white;
+        }
+        h2{
+            margin: 0 auto;
+            display: inline-block;
+            position: absolute;
+            left: 200px;
+        }
+        #cell1{
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+        input{
+            margin-top: 8px;
+            height: 18px;
+            position: absolute;
+            width: 240px;
+            left: 350px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            outline: none;
+            padding-left: 5px;
+        }
+        label{
+            position: absolute;
+            left: 600px;
+            top: 13px;
+        }
+
+        #cell2{
+            position: absolute;
+            left: 1000px;
+            top: 13px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        #a0,#a1,#a2,#a3,#a4 {
+            color: black;
+            padding-right: 8px;
+        }
+
+        #body{
+            margin-left: 200px;
+            margin-top: 25px;
+            width: 700px;
+            background-color: white;
+            float: left;
+        }
+        #a5,#a6,#a7,#a8,#a9,#a10,#a11,#a12,#a13,#a14,#a15 {
+            color: black;
+            padding-right: 15px;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        td a{
+            color: black;
+        }
+        #create{
+            margin-left: 1000px;
+            margin-top: 50px;
+            width: 200px;
+            height: 100px;
+            padding-top: 50px;
+            text-align: center;
+            background-color: white;
+        }
+        #avatar{
+            width: 45px;
+            height: 45px;
+
+        }
+        #username{
+            color: black;
+        }
+        #create a{
+            color: black;
+        }
+        #image{
+            width: 45px;
+            height: 45px;
+            margin-right: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="cell1">
+        <h2>程序员论坛</h2>
+        <input type="text" name="search" id="search">
+        <label for="search"><a href="" id="a1">搜索</a></label>
+    </div>
+    <div id="cell2">
+        <a th:href="@{/index}" id="a2">首页</a>
+        <a id="username" th:href="@{/person/}+${#session.getAttribute('users').username}" th:text="${#session.getAttribute('users').username}"></a>
+        <a th:href="@{/signout}" id="a0">登出</a>
+    </div>
+</div>
+
+<div id="body">
+    <div id="cell3">
+        <a href="" id="a5">技术</a>
+        <a href="" id="a6">创意</a>
+        <a href="" id="a7">好玩</a>
+        <a href="" id="a8">Apple</a>
+        <a href="" id="a9">酷工作</a>
+        <a href="" id="a10">交易</a>
+        <a href="" id="a11">城市</a>
+        <a href="" id="a12">问与答</a>
+        <a href="" id="a13">最热</a>
+        <a href="" id="a14">全部</a>
+        <a href="" id="a15">R2</a>
+    </div>
+    <hr>
+    <table>
+        <tbody th:each="blog:${blogList}">
+            <tr>
+                <td rowspan="2">
+                    <img id="image" th:src="@{avatar/}+${blog.avatar}">
+                </td>
+                <td>
+                    <a th:href="@{/blog/}+${blog.id}" th:text="${blog.bTheme}"></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    程序员·
+                    <a th:href="@{/person/}+${blog.bUsername}" th:text="${blog.bUsername}"></a>
+                    ·发布于
+                    <span th:text="${blog.time}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div id="create">
+    <img src="" id="avatar">
+    <br>
+    <a th:href="@{/create}">创建新主题</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+
+    $(function () {
+        $.ajax({
+            url: "avatar",
+            dataType: "json",
+            method: "POST",
+            success: function (response) {
+                let avatar = response.avatar;
+                $("#avatar").attr("src", "/avatar/" + avatar);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

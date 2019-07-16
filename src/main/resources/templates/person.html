@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0 auto;
+            background-color: rgba(0,0,0,0.1);
+        }
+        #main{
+            text-align: center;
+            height: 50px;
+            background-color: white;
+        }
+        h2{
+            margin: 0 auto;
+            display: inline-block;
+            position: absolute;
+            left: 200px;
+        }
+        #cell1{
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+        #search{
+            margin-top: 8px;
+            height: 18px;
+            position: absolute;
+            width: 240px;
+            left: 350px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            outline: none;
+            padding-left: 5px;
+        }
+        label{
+            position: absolute;
+            left: 600px;
+            top: 13px;
+        }
+
+        #cell2{
+            position: absolute;
+            left: 1000px;
+            top: 13px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        #a0,#a1,#a2 {
+            color: black;
+            padding-right: 8px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        #body{
+            margin-left: 200px;
+            margin-top: 25px;
+            width: 700px;
+            background-color: white;
+            padding-top: 10px;
+            padding-left: 10px;
+        }
+        #avatar{
+            width: 45px;
+            height: 45px;
+        }
+        #theme{
+            margin-left: 200px;
+            margin-top: 25px;
+            width: 700px;
+            background-color: white;
+
+        }
+        td a{
+            color: black;
+        }
+        #reply{
+            margin-left: 200px;
+            margin-top: 25px;
+            width: 700px;
+            background-color: white;
+        }
+        #t2{
+            font-size: 0.8em;
+        }
+        #r1{
+            font-size: 0.8em;
+            width: 700px;
+        }
+        #tbody{
+            width: 700px;
+        }
+        #username{
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="cell1">
+        <h2>程序员论坛</h2>
+        <input type="text" name="search" id="search">
+        <label for="search"><a href="https://www.baidu.com" id="a1">搜索</a></label>
+    </div>
+    <div id="cell2">
+        <a th:href="@{/index}" id="a2">首页</a>
+        <a id="username" th:href="@{/person/}+${#session.getAttribute('users').username}" th:text="${#session.getAttribute('users').username}"></a>
+        <a th:href="@{/signout}" id="a0">登出</a>
+    </div>
+</div>
+
+<div id="body">
+    <table id="tbody">
+
+        <tr>
+            <td rowspan="2">
+                <img id="avatar" th:src="@{/avatar/}+${users.avatar}">
+            </td>
+            <td>
+                <h3 th:text="${users.username}"></h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                第<span th:text="${users.id}"></span>号会员，加入于
+                <span th:text="${users.time}"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="theme">
+    <div id="theader">
+        <span th:text="${users.username}"></span><span>创建的主题</span>
+    </div>
+    <hr>
+    <table>
+        <tbody th:each="blog:${blogList}">
+        <tr>
+            <td id="t1">
+                <a th:href="@{/blog/}+${blog.id}" th:text="${blog.bTheme}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td id="t2">
+                程序员·
+                <a href="" th:text="${blog.bUsername}"></a>
+                ·<span th:text="${blog.time}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="reply">
+    <div id="rheader">
+        <span th:text="${users.username}"></span><span>最近回复了</span>
+    </div>
+    <hr>
+    <table>
+        <tbody th:each="reply:${replyList}">
+        <tr>
+            <td id="r1">
+                回复了<span th:text="${reply.bUsername}"></span>创建的主题>程序员>
+                <span th:text="${reply.rTheme}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td id="r2">
+                <span th:text="${reply.replay}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

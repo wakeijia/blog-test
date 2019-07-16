@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0 auto;
+            background-color: rgba(0,0,0,0.1);
+        }
+        #main{
+            text-align: center;
+            height: 50px;
+            background-color: white;
+        }
+        h2{
+            margin: 0 auto;
+            display: inline-block;
+            position: absolute;
+            left: 200px;
+        }
+        #cell1{
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+        #search{
+            margin-top: 8px;
+            height: 18px;
+            position: absolute;
+            width: 240px;
+            left: 350px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            outline: none;
+            padding-left: 5px;
+        }
+        label{
+            position: absolute;
+            left: 600px;
+            top: 13px;
+        }
+
+        #cell2{
+            position: absolute;
+            left: 1000px;
+            top: 13px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        #a0,#a1,#a2 {
+            color: black;
+            padding-right: 8px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        #span{
+            letter-spacing: 2px;
+            margin-left: 10px;
+            padding-top: 10px;
+        }
+        span:nth-of-type(2){
+            font-size: 10px;
+        }
+        #form{
+            margin-left: 200px;
+            margin-top: 25px;
+            width: 920px;
+            height: 500px;
+            background-color: white;
+        }
+        hr{
+            color: rgba(0,0,0,0.15);
+        }
+        form input{
+            height: 26px;
+            width: 900px;
+            border: 1px solid rgba(0,0,0,0.2);
+            outline: none;
+        }
+        form textarea{
+            height: 250px;
+            width: 900px;
+            outline: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="cell1">
+        <h2>程序员论坛</h2>
+        <input type="text" name="search" id="search">
+        <label for="search"><a href="https://www.baidu.com" id="a1">搜索</a></label>
+    </div>
+    <div id="cell2">
+        <a th:href="@{/index}" id="a2">首页</a>
+        <a id="username" th:href="@{/person/}+${#session.getAttribute('users').username}" th:text="${#session.getAttribute('users').username}"></a>
+        <a th:href="@{/signout}" id="a0">登出</a>
+    </div>
+</div>
+
+<div id="form">
+    <div id="span">
+        <span>论坛</span>
+        <span>></span>
+        <span>创建新主题</span>
+    </div>
+    <hr>
+    <form method="post">
+        <div class="row">
+            <span>主题标题</span>
+        </div>
+        <hr>
+        <div class="row">
+            <label for="theme"></label>
+            <input type="text" name="theme" id="theme">
+        </div>
+        <hr>
+        <div class="row">
+            <span>正文</span>
+        </div>
+        <hr>
+        <div class="row">
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        </div>
+        <div class="row">
+            <button type="submit">发布主题</button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
